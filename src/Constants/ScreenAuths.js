@@ -2,7 +2,7 @@ import {Home, LoginScreen, MenuScreen, ProductScreen, SignupScreen} from '../Scr
 export const permaScreens = [
   {name: 'Home', component: Home},
   {name: 'Product', component: ProductScreen},
-  {name: "Menu", component: MenuScreen},
+  // {name: "Menu", component: MenuScreen},
   
 ];
 
