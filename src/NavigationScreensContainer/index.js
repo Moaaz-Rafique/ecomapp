@@ -11,7 +11,7 @@ import {
 } from '../Screen';
 import {StyleSheet, useColorScheme} from 'react-native';
 import {DefaultTheme} from 'react-native-paper';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 function NavigationScreensContainer() {
   const Stack = createNativeStackNavigator();
   const isDarkMode = useColorScheme() === 'dark';
@@ -47,7 +47,7 @@ function NavigationScreensContainer() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FFFFFF',
   },
 });
 

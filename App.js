@@ -7,17 +7,16 @@ import {PersistGate} from 'redux-persist/integration/react';
 import configStore from './src/Redux';
 import NavigationScreensContainer from './src/NavigationScreensContainer';
 
-import {Text, View} from 'react-native';
 function App() {
+ 
+ 
   const {store, persistor} = configStore();
-  
-  
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NavigationScreensContainer />
       </PersistGate>
-    // </Provider>
+    </Provider>
   );
 }
-export default App;
+export default App;git 

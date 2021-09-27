@@ -1,9 +1,8 @@
 import {useFocusEffect} from '@react-navigation/core';
 import React, {useCallback, useState} from 'react';
 import {FlatList, Text, View} from 'react-native';
-import { Button } from 'react-native-paper';
 import {useSelector} from 'react-redux';
-import {MenuItem, UserProfile} from '../Components';
+import {MenuItem} from '../Components';
 import {LoggedOutScreens, permaScreens} from '../Constants/ScreenAuths';
 
 function MenuScreen({navigation}) {
@@ -18,21 +17,18 @@ function MenuScreen({navigation}) {
     }, []),
   );
   return (
-    <View style={{backgroundColor: 'white'}}>
+    <View>
       <Text>Menu</Text>
-      {user ? <UserProfile /> : null}
       <FlatList
         data={myNavScreens}
         renderItem={({item}) => (
           <MenuItem item={item} navigation={navigation} />
         )}
-        keyExtractor={link => {
-          console.log(link);
-          return link.name;
+        keyExtractor={link => {          
+          console.log(link)
+          return link.name
         }}
       />
-      <Button onPress={() => console.log(user)}>Show</Button>
-
     </View>
   );
 }
