@@ -1,8 +1,8 @@
-import {SET_CURRENT_ROUTE, SET_PREV_ROUTE} from '../types';
+import { SET_CURRENT_ROUTE, SET_PREV_ROUTE } from "../types";
 
 const INTIAL_STATE = {
-  currentRoute: '',
-  prevRoute: '',
+  currentRoute: "",
+  prevRoute: "",
 };
 
 const reducer = (state = INTIAL_STATE, action) => {

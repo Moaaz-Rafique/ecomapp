@@ -126,18 +126,15 @@ function ProductScreen({navigation, route}) {
             Rs. {product?.price}
           </Text>
         </View>
-        <View
-          style={{
-            flex: 1,
-
-            margin: 20,
-            marginTop: 0,
-            borderRadius: 20,
-          }}>
-          <Text style={{fontSize: 20, fontWeight: 'bold'}}>
-            Similar products
-          </Text>
+        <View>
           <FlatList
+            style={{
+              flex: 1,
+
+              margin: 20,
+              marginTop: 0,
+              borderRadius: 20,
+            }}
             horizontal={true}
             data={similar}
             renderItem={item => (

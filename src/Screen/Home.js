@@ -8,29 +8,23 @@ import {
   TouchableOpacity,
   View,
   Text,
-  ScrollView,
 } from 'react-native';
-import {Avatar, Button} from 'react-native-paper';
+import {Button} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {ProductCard} from '../Components';
-import {BorderedTextInput} from '../Components/SimpleComponents';
-import {FETCH_ALL_CATEGORIES, FETCH_ALL_PRODUCTS} from '../Constants/apis';
-import {SET_CATEGORIES, SET_PRODUCT_LIST} from '../Redux/types';
+import {FETCH_ALL_PRODUCTS} from '../Constants/apis';
+import {SET_PRODUCT_LIST} from '../Redux/types';
 // import swal from 'react-native-sweet-alert';
 
 function Home({navigation}) {
   const products = useSelector(state => state.productReducer.product_list);
-  const categories = useSelector(state => state.categoryReducer.categories);
-  const user = useSelector(state => state.userReducer.user_details);
   const dispatch = useDispatch();
   const [networkError, setNetworkError] = useState(false);
   useFocusEffect(
     useCallback(() => {
-      getCategoryList();
       getProductList();
     }, []),
   );
-
   const getProductList = async () => {
     try {
       const data = await axios.get(FETCH_ALL_PRODUCTS);
@@ -48,21 +42,13 @@ function Home({navigation}) {
       }
     }
   };
-  const getCategoryList = async () => {
-    try {
-      const data = await axios.get(FETCH_ALL_CATEGORIES);
-      dispatch({type: SET_CATEGORIES, payload: data.data.data});
-    } catch (error) {
-      console.log(error);
-    }
-  };
   //   if (networkError) {
   //     //   navigation.navigate('Login');
   //     alert('no network', 'sadsad','error')
   //     // return
   //   }
   return (
-    <ScrollView style={{backgroundColor: '#fff'}}>
+    <View>
       <View>
         
         {/* Search */}
@@ -72,7 +58,19 @@ function Home({navigation}) {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <BorderedTextInput />
+          <TextInput
+            style={{
+              flex: 0.7,
+              borderRadius: 10,
+              borderColor: '#FF2A44',
+              margin: 10,
+              marginRight: 0,
+              borderWidth: 2,
+              fontSize: 20,
+              paddingLeft: 10,
+              paddingRight: 10,
+            }}
+          />
           <TouchableOpacity style={{flex: 0.3}}>
             <Text
               style={{
@@ -90,33 +88,8 @@ function Home({navigation}) {
         </View>
       </View>
       <FlatList
-        data={categories}
-        horizontal={true}
-        renderItem={({item}) => {
-          // console.log(item);
-          return (
-            <Text
-              style={{
-                margin: 10,
-                padding: 10,
-                borderRadius: 20,
-                fontWeight: 'bold',
-                color: 'white',
-                backgroundColor: item?.color,
-              }}>
-              {item?.title || 'notfound'}
-            </Text>
-          );
-        }}
-        keyExtractor={product => product?._id}
-      />
-      <FlatList
-        style={
-          {
-            // marginTop: 50,
-          }
-        }
-        numColumns={3}
+        // style={{height: 300}}
+        numColumns={2}
         horizontal={false}
         data={products}
         renderItem={item => (
@@ -124,8 +97,7 @@ function Home({navigation}) {
         )}
         keyExtractor={product => product?._id}
       />
-      <Button onPress={() => console.log(user)}>Show</Button>
-    </ScrollView>
+    </View>
   );
 }
 export default Home;
