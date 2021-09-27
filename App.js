@@ -7,40 +7,25 @@ import {Home, LoginScreen, ProductScreen} from './src/Screen';
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import configStore from './src/Redux';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import NavigationScreensContainer from './src/NavigationScreensContainer';
 
 function App() {
-  const Stack = createNativeStackNavigator();
-  const isDarkMode = useColorScheme() === 'dark';
-  const theme = {
-    ...DefaultTheme,
-    roundness: 2,
-    colors: {
-      ...DefaultTheme.colors,
-      primary: '#3498db',
-      accent: '#f1c40f',
-    },
-  };
-
-  const backgroundStyle = {
-    // backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+ 
+ 
   const {store, persistor} = configStore();
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <NavigationContainer>
-          <SafeAreaView style={styles.container}>
-            <Stack.Navigator>
-              {/* <Stack.Screen name="Home1" component={HomeScreen} /> */}
-              <Stack.Screen name="Home" component={Home} />
-              <Stack.Screen name="Login" component={LoginScreen} />
-              <Stack.Screen name="Product" component={ProductScreen} />
-            </Stack.Navigator>
-          </SafeAreaView>
-        </NavigationContainer>
+        <NavigationScreensContainer />
       </PersistGate>
     </Provider>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+  }
+});
+
 export default App;
