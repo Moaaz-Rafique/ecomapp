@@ -3,15 +3,17 @@ import axios from 'axios';
 import React, {useCallback, useState} from 'react';
 import {
   FlatList,
-  TextInput,
-  TextInputBase,
   TouchableOpacity,
   View,
+  ScrollView,
   Text,
+  Image,
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {ProductCard} from '../Components';
+import Camera from '../Components/Camera';
+import {BorderedTextInput} from '../Components/SimpleComponents';
 import {FETCH_ALL_PRODUCTS} from '../Constants/apis';
 import {SET_PRODUCT_LIST} from '../Redux/types';
 // import swal from 'react-native-sweet-alert';
@@ -28,8 +30,12 @@ function Home({navigation}) {
   const getProductList = async () => {
     try {
       const data = await axios.get(FETCH_ALL_PRODUCTS);
-      // console.log(data.data);
+      console.log(data.data);
+      if (!data?.data?.data) {
+        throw new Error(data?.data?.message);
+      }
       dispatch({type: SET_PRODUCT_LIST, payload: data?.data?.data});
+      console.log('Product list', data?.data);
     } catch (error) {
       if (!error.response) {
         // network error
@@ -42,15 +48,15 @@ function Home({navigation}) {
       }
     }
   };
+  const [imageUri, setImageUri] = useState(null);
   //   if (networkError) {
   //     //   navigation.navigate('Login');
   //     alert('no network', 'sadsad','error')
   //     // return
   //   }
   return (
-    <View>
+    <ScrollView>
       <View>
-        
         {/* Search */}
         <View
           style={{
@@ -58,19 +64,7 @@ function Home({navigation}) {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <TextInput
-            style={{
-              flex: 0.7,
-              borderRadius: 10,
-              borderColor: '#FF2A44',
-              margin: 10,
-              marginRight: 0,
-              borderWidth: 2,
-              fontSize: 20,
-              paddingLeft: 10,
-              paddingRight: 10,
-            }}
-          />
+          <BorderedTextInput />
           <TouchableOpacity style={{flex: 0.3}}>
             <Text
               style={{
@@ -87,7 +81,7 @@ function Home({navigation}) {
           </TouchableOpacity>
         </View>
       </View>
-      <FlatList
+      {/* <FlatList
         // style={{height: 300}}
         numColumns={2}
         horizontal={false}
@@ -96,8 +90,18 @@ function Home({navigation}) {
           <ProductCard product={item?.item} navigation={navigation} />
         )}
         keyExtractor={product => product?._id}
+      /> */}
+
+      <Camera setImageUri={setImageUri} />
+      <Image
+        style={{
+          height: 500,
+          resizeMode: 'contain',
+          backgroundColor: '#f0f0f0',
+        }}
+        source={{uri: imageUri}}
       />
-    </View>
+    </ScrollView>
   );
 }
 export default Home;

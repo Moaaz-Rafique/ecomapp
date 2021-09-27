@@ -1,11 +1,5 @@
-<<<<<<< HEAD
-import ProductCard from "./ProductCard";
-export {
-    ProductCard
-}
-=======
 import ProductCard from './ProductCard';
 import CustomNavigationBar from './CustomNavigationBar';
-import MenuItem from './MenuItem';
+import MenuItem from './MenuItem'
+import Camera from './Camera'
 export {ProductCard, CustomNavigationBar, MenuItem};
->>>>>>> parent of d2eabed (save state)
